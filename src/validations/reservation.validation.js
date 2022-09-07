@@ -3,9 +3,9 @@ const Joi = require('joi');
 const createReservation = {
     body: Joi.object().keys({
         fullName: Joi.string().min(1).max(255).required(),
-        indentification: Joi.string().regex(/^\d+$/).min(8).max(255).required(),
+        identification: Joi.string().regex(/^\d+$/).min(8).max(255).required(),
         email: Joi.string().email().required(),
-        phone: Joi.string().regex(/^\d+$/).min(5).max(255).required(),
+        phone: Joi.string().regex(/^\d+$/).min(9).max(255).required(),
         days: Joi.number().strict().positive().required(),
         initDay: Joi.string().isoDate().required()
     })
@@ -27,8 +27,15 @@ const paidReservation = {
     })
 }
 
+const reservationByIdentifcation = {
+    params: Joi.object().keys({
+        identification: Joi.string().regex(/^\d+$/).min(8).max(255).required()
+    }),
+}
+
 module.exports = {
     createReservation,
     canceledReservation,
-    paidReservation
+    paidReservation,
+    reservationByIdentifcation
 }

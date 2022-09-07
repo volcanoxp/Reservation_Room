@@ -24,7 +24,7 @@ const Reservation = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        indentification: {
+        identification: {
             type: DataTypes.STRING,
             allowNull: false
         },

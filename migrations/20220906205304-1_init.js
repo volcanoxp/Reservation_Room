@@ -56,7 +56,7 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: false
           },
-          indentification: {
+          identification: {
             type: Sequelize.DataTypes.STRING,
             allowNull: false
           },

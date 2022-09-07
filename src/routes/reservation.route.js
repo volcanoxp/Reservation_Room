@@ -12,13 +12,18 @@ router.post('/',
 )
 
 router.patch('/:reservationId/canceled', 
-validatorHandler(reservationValidation.canceledReservation),
+    validatorHandler(reservationValidation.canceledReservation),
     reservationController.canceledReservation
 )
 
 router.patch('/:reservationId/paid', 
     validatorHandler(reservationValidation.paidReservation),
     reservationController.paidReservation
+)
+
+router.get('/identification/:identification',
+    validatorHandler(reservationValidation.reservationByIdentifcation),
+    reservationController.getReservationsByIdentification
 )
 
 module.exports = router;

@@ -35,9 +35,22 @@ const paidReservation = async (req, res, next) => {
     }
 }
 
+const getReservationsByIdentification = async (req, res, next) => {
+    try {
+        const reservations = await reservationService.getReservationsByIdentification(
+            req.params.identification
+        );
+    
+        res.json(reservations);
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 module.exports = {
     createReservation,
     canceledReservation,
-    paidReservation
+    paidReservation,
+    getReservationsByIdentification
 }

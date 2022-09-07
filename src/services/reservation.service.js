@@ -1,5 +1,7 @@
 const boom = require('@hapi/boom');
 const Reservation = require('../models/reservation');
+const roomService = require('./room.service');
+
 
 const getReservationById = async (reservationId) => {
     return Reservation.findOne({
@@ -9,18 +11,19 @@ const getReservationById = async (reservationId) => {
 
 const createReservation = async (data) => {
     
-    const room = {
-        id: 5,
-        priceDay: 40
-    }
+    const room = await roomService.getRoomFreeByDate(data.initDay, data.days);
     
+    if (!room) {
+        throw boom.badRequest('All rooms are occupied');
+    }
+
     const roomId = room.id;
     const price = room.priceDay * data.days;
 
     return Reservation.create({
         roomId,
         fullName: data.fullName,
-        indentification: data.indentification,
+        identification: data.identification,
         email: data.email,
         phone: data.phone,
         price,
@@ -75,11 +78,18 @@ const paidReservation = async (reservationId, paymentMethod, mount) => {
             id: reservationId
         }
     })
-    
 }
+
+const getReservationsByIdentification = async (identification) => {
+    return Reservation.findAll({
+        where: { identification }
+    })
+}
+
 
 module.exports = {
     createReservation,
     canceledReservation,
-    paidReservation
+    paidReservation,
+    getReservationsByIdentification
 }

@@ -1,5 +1,7 @@
 const Room = require('../models/room');
-
+const sequelize = require('../database/database');
+const { QueryTypes } = require('sequelize');
+const boom = require('@hapi/boom');
 
 const generateLetterFromNumber = (n) => {
     n = n - 1;
@@ -36,6 +38,12 @@ const getLastRoomByFloor = async (floor) => {
     });
 }
 
+const getRoomById = async (roomId) => {
+    return Room.findOne({
+        where: {id: roomId}
+    })
+}
+
 const createRooms = async (floor, quantity) => {
     const lastRoom = await getLastRoomByFloor(floor);
     
@@ -47,6 +55,12 @@ const createRooms = async (floor, quantity) => {
 }
 
 const disableRoom = async (roomId) => {
+    const room = await getRoomById(roomId);
+
+    if (!room) {
+        throw boom.badRequest('Room not exits');
+    }
+
     return Room.update({ isActive: false }, {
         where: {
             id: roomId
@@ -55,6 +69,12 @@ const disableRoom = async (roomId) => {
 }
 
 const updateRoomPrice = async (roomId, price) => {
+    const room = await getRoomById(roomId);
+
+    if (!room) {
+        throw boom.badRequest('Room not exits');
+    }
+
     return Room.update({ priceDay: price}, {
         where: {
             id: roomId
@@ -62,9 +82,28 @@ const updateRoomPrice = async (roomId, price) => {
     })
 }
 
+const getRoomFreeByDate = async (date, days) => {
+    const room = await sequelize.query(`
+        SELECT
+        Ro.*
+        FROM "Room" AS Ro
+        LEFT JOIN "Reservation" as Re ON Re."roomId" = Ro.id
+        WHERE Ro."isActive" = true
+            AND ( :date::date NOT BETWEEN Re."initDay" AND ( Re."initDay" + Re.days - 1))
+            AND ( :date::date + :days NOT BETWEEN Re."initDay" AND ( Re."initDay" + Re.days - 1))
+            OR Re.id IS NULL
+        LIMIT 1
+    `, {
+        replacements: { date, days},
+        type: QueryTypes.SELECT
+    })
+    return room.length ? room[0] : null
+}
+
 
 module.exports = {
     createRooms,
     disableRoom,
-    updateRoomPrice
+    updateRoomPrice,
+    getRoomFreeByDate
 }

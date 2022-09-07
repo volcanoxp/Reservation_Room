@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "migration": "sequelize-cli db:migrate"
+    "migration": "sequelize-cli db:migrate",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
