@@ -22,8 +22,16 @@ const updateRoomPrice = {
     })
 }
 
+const disponibilityRoomByDate = {
+    query: Joi.object().keys({
+        days: Joi.string().regex(/^\d+$/).required(),
+        date: Joi.string().isoDate().required()
+    })
+}
+
 module.exports = {
     createRooms,
     disableRoom,
-    updateRoomPrice
+    updateRoomPrice,
+    disponibilityRoomByDate
 }

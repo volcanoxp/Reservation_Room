@@ -32,8 +32,19 @@ const updateRoomPrice = async (req, res, next) => {
     }
 }  
 
+const disponibilityRoomByDate = async (req, res, next) => {
+    try {
+        const response = await roomService.disponibilityRoomByDate(req.query.date, req.query.days);
+
+        res.json(response);
+    } catch(error) {
+        next(error)
+    }
+}  
+
 module.exports = {
     createRooms,
     disableRoom,
-    updateRoomPrice
+    updateRoomPrice,
+    disponibilityRoomByDate
 }

@@ -19,6 +19,11 @@ router.patch('/:roomId/price',
     validatorHandler(roomValidator.updateRoomPrice), 
     roomController.updateRoomPrice
 );
+
+router.get('/disponibility',
+    validatorHandler(roomValidator.disponibilityRoomByDate), 
+    roomController.disponibilityRoomByDate
+)
     
 
 module.exports = router;

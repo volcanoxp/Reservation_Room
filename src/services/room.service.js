@@ -90,7 +90,7 @@ const getRoomFreeByDate = async (date, days) => {
         LEFT JOIN "Reservation" as Re ON Re."roomId" = Ro.id
         WHERE Ro."isActive" = true
             AND ( :date::date NOT BETWEEN Re."initDay" AND ( Re."initDay" + Re.days - 1))
-            AND ( :date::date + :days NOT BETWEEN Re."initDay" AND ( Re."initDay" + Re.days - 1))
+            AND ( :date::date + :days::integer NOT BETWEEN Re."initDay" AND ( Re."initDay" + Re.days - 1))
             OR Re.id IS NULL
         LIMIT 1
     `, {
@@ -100,10 +100,24 @@ const getRoomFreeByDate = async (date, days) => {
     return room.length ? room[0] : null
 }
 
+const disponibilityRoomByDate = async (date, days) => {
+
+    const room = await getRoomFreeByDate(date, days);
+
+    const response = {
+        disponibility: room ? true : false,
+        date,
+        message: `The hotel has room in ${date}: ${room ? 'yes': 'no'}`
+    }
+
+    return response
+}
+
 
 module.exports = {
     createRooms,
     disableRoom,
     updateRoomPrice,
-    getRoomFreeByDate
+    getRoomFreeByDate,
+    disponibilityRoomByDate
 }
