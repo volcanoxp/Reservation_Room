@@ -18,6 +18,10 @@ app.use(cors());
 // register routes
 app.use(routes);
 
+app.get('/test', (req, res) => {
+    res.json({error: false})
+})
+
 // middlewares
 app.use(boomErrorHandler);
 app.use(errorHandler);
