@@ -22,7 +22,7 @@ const paidReservation = {
         reservationId: Joi.number().positive().required()
     }),
     body: Joi.object().keys({
-        paymentMethod: Joi.string().valid('PAID','CANCELED').required(),
+        paymentMethod: Joi.string().valid('CASH','CARD').required(),
         mount: Joi.number().strict().positive().required()
     })
 }

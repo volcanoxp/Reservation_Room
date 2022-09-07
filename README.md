@@ -50,3 +50,8 @@ List of available routes:
 `PATCH /reservation/:reservationId/canceled` - canceled reservation\
 `PATCH /reservation/:reservationId/paid` - paid reservation\
 `GET /reservation/identification/:identification` - check all reservations of client with number identifaction\
+
+
+### **API POSTMAN DOCUMENTACION / EXAMPLES**
+
+https://documenter.getpostman.com/view/11308127/VVBUxRnY
