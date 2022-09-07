@@ -8,8 +8,6 @@ COPY . .
 
 RUN npm install
 
-RUN npm run migration
-
 USER node
 
 EXPOSE 3000
