@@ -10,11 +10,11 @@ module.exports = {
     dialect: 'postgres'
   },
   test: {
-    username: process.env.CI_DB_USERNAME,
-    password: process.env.CI_DB_PASSWORD,
-    database: process.env.CI_DB_NAME,
-    host: '127.0.0.1',
-    port: 3306,
+    username: config.db.username,
+    password: config.db.password,
+    database: config.db.name,
+    host: config.db.host,
+    port: config.db.port,
     dialect: 'postgres'
   },
   production: {
