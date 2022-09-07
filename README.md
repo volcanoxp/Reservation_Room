@@ -1,6 +1,4 @@
 
-
-
 # STEPS TO DEPLOY THIS API
 
 1. Clone repository
@@ -25,9 +23,19 @@ curl http://localhost:3000/test
 - **Validation**: request data validation using [Joi](https://github.com/hapijs/joi)
 - **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
 - **Docker support**
-- **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv) and [cross-env](https://github.com/kentcdodds/cross-env#readme)
+- **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv)  
 
-### API Endpoints
+### **API Description**
+
+This api seeks to help manage hotel room reservations. You can also configure the number of rooms per floor of the hotel and the price of each room. Reservations are created indicating all personal data, the date of stay and how many days they will stay. There is also a functionality to quickly verify if a certain date there is availability of rooms. Reservations have three states which are pending, paid and cancelled, where the api ensures that the correct flow of these states is met.
+
+Simple flow example:
+
+- The client verifies that there is room availability in the hotel.
+- Then start making the reservation.
+- Finally the client makes the payment or can cancel the reservation.
+
+### **API Endpoints**
 
 List of available routes:
 
@@ -35,7 +43,7 @@ List of available routes:
 `POST /room/` - create many room by floor\
 `PATCH /room/:roomId/disable` - disable one room\
 `PATCH /room/:roomId/price` - update price of room\
-
+`GET /room/disponibility` - check availability room on a specific day\
 
 **Reservation routes**:\
 `POST /reservation/` - create new reservation\
