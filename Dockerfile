@@ -1,4 +1,4 @@
-FROM node:17-alpine3.14
+FROM node:18-alpine
 
 RUN mkdir /app && chown -R node:node /app
 
@@ -11,5 +11,3 @@ RUN npm install
 USER node
 
 EXPOSE 3000
-
-CMD ["npm", "run", "start"]

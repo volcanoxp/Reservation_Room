@@ -9,7 +9,7 @@ module.exports = {
         port: process.env.DB_PORT || 5432,
         host: process.env.DB_HOST || 'db',
         name: process.env.DB_NAME || 'hotel',
-        username: process.env.DB_USERNAME || 'hotel',
-        password: process.env.DB_PASSWORD || 'hotel',
+        username: process.env.DB_USERNAME || 'postgres',
+        password: process.env.DB_PASSWORD || 'postgres',
     }
 }
